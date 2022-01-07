@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.kgc.yang.mapper.ProductMapper">
+    <select id="selectProduct" resultType="cn.kgc.yang.entity.Product">
+        select
+        id,name,price,info,product_date,status
+        from demo.t_product
+        <where>
+            <if test="name!=null and name!=''">
+                <bind name="n" value="'%'+ name +'%'"></bind>
+                and name like #{n}
+            </if>
+
+            <if test="minPrice!=null and minPrice!=''">
+                and price >= #{minPrice}
+            </if>
+            <if test="status != null and status != -1">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <update id="update" parameterType="cn.kgc.yang.entity.Product">
+        update demo.t_product
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            id = #{id}
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

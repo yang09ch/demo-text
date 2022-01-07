@@ -1,0 +1,33 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+#项目名
+spring:
+  application:
+    name: crud
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: yang
+    # druid  配置数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      max-wait: 5000
+      max-active: 10
+      initial-size: 6
+  #循环依赖
+  main:
+    allow-circular-references: true
+mybatis:
+  mapper-locations: classpath*:mappers/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+#跨域
+core:
+  config:
+    headers: '*'
+    mapping: '/**'
+    methods: '*'
+    origins: '*'
